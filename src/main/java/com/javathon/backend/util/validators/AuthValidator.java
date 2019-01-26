@@ -25,6 +25,9 @@ public class AuthValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         UserDTO userDTO = (UserDTO) target;
-//        userDao.findById(userDTO.getId());
+        User user = userDao.findById(userDTO.getVk_id());
+        if (user != null) {
+            errors.reject("Already authentificated");
+        }
     }
 }

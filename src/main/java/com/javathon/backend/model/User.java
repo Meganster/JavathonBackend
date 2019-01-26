@@ -1,6 +1,7 @@
 package com.javathon.backend.model;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,6 +25,9 @@ public class User {
     private boolean isVisible;
 
     private LocalDateTime last_seen_date;
+
+    private String token;
+    private String recovery_code;
 
     @ElementCollection(targetClass = User.class)
     @CollectionTable(name = "friends", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "friend_id"}, name = "friends")})
