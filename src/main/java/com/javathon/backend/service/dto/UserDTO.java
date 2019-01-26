@@ -34,7 +34,7 @@ public class UserDTO {
 
     @JsonPOJOBuilder
     public static class Builder {
-        protected User user;
+        private User user;
 
         private long id;
         @JsonProperty("imei")
