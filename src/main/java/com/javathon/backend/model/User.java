@@ -25,6 +25,7 @@ public class User {
     private LocalDateTime last_seen_date;
 
     @ElementCollection(targetClass = User.class)
+    @CollectionTable(name = "friends", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "friend_id"}, name = "friends")})
     @MapKey(name="id")
-    private Map<Long, User> friends;
+    private Map<Long, User> friend;
 }
