@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY ,
   imei INTEGER NOT NULL ,
   username citext,
-  last_latitude DOUBLE ,
-  last_longtitude DOUBLE ,
+  last_latitude REAL,
+  last_longtitude REAL ,
   is_visible boolean default false
 );
