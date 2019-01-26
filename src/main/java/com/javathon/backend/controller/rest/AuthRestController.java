@@ -12,10 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,13 +22,11 @@ public class AuthRestController {
 
     private final UserService userService;
     private final AuthValidator authValidator;
-    private final UserConverter userConverter;
 
     @Autowired
-    public AuthRestController(UserService userService, AuthValidator authValidator, UserConverter userConverter) {
+    public AuthRestController(UserService userService, AuthValidator authValidator) {
         this.userService = userService;
         this.authValidator = authValidator;
-        this.userConverter = userConverter;
     }
 
     @PostMapping(path = "/auth")
@@ -41,16 +36,28 @@ public class AuthRestController {
         }
         String token = userService.getToken();
         String shortToken = userService.getShortToken();
-        User user = userConverter.convert(userDTO);
+        User user = UserConverter.convert(userDTO);
         user.setToken(token);
         user.setRecovery_code(shortToken);
         userService.saveUser(user);
         AuthDTO authDTO = new AuthDTO(token, shortToken);
         return ResponseEntity.ok(authDTO);
     }
-
     @PostMapping(path = "/recovery")
-    public ResponseEntity recovery
+    public ResponseEntity recovery(@RequestBody UserDTO userDTO) {
+        User existUser = userService.getUserById(userDTO.getVkId());
+        if (!existUser.getRecovery_code().equals(userDTO.getRecoveryCode())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
+        }
+        existUser.setImei(userDTO.getImey());
+        String token = userService.getToken();
+        String shortToken = userService.getShortToken();
+        existUser.setToken(token);
+        existUser.setRecovery_code(shortToken);
+        userService.saveUser(existUser);
+        AuthDTO authDTO = new AuthDTO(token, shortToken);
+        return ResponseEntity.ok(authDTO);
+    }
 
     @InitBinder
     protected void initBinder(WebDataBinder bind) {

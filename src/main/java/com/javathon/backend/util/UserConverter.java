@@ -6,16 +6,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
-@Component
 public class UserConverter {
 
-    public User convert(UserDTO userDTO) {
+    public static User convert(UserDTO userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
         user.setLastLatitude(userDTO.getLastLatitude());
         user.setLastLongitude(userDTO.getLastLongitude());
         user.setUsername(userDTO.getUsername());
-        user.setVkId(userDTO.getVk_id());
+        user.setVkId(userDTO.getVkId());
         user.setVisible(userDTO.isVisible());
         user.setLastSeenDate(userDTO.getLocalDateTime());
         user.setFriend(new HashMap<>());

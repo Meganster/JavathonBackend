@@ -11,36 +11,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
-    private final UserConverter userConverter;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl (UserDao userDao, UserConverter userConverter, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl (UserDao userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
-        this.userConverter = userConverter;
         this.passwordEncoder = passwordEncoder;
     }
+    @Override
     public void saveUser(User user) {
         userDao.save(user);
     }
 
-    public User getUserByImei(long imei) {
-        return userDao.findByImei(imei);
-    }
-
     @Override
-    public void getFriendsPosition(UniversalResponse universalResponse) {
-
+    public User getUserById(long id) {
+        return userDao.findByVkId(id);
     }
 
     @Override
     public String getToken() {
         return passwordEncoder.encode(UUID.randomUUID().toString());
+    }
+
+    @Override
+    public UniversalResponse updatePosition(UserDTO userDTO) {
+        UniversalResponse universalResponse = new UniversalResponse();
+        //Update user
+        User user = userDao.findByVkId(userDTO.getVkId());
+        user.setLastLatitude(userDTO.getLastLatitude());
+        user.setLastLongitude(userDTO.getLastLongitude());
+        user.setLastSeenDate(LocalDateTime.now());
+        //Send friends position
+        user.getFriend().forEach((vkId, friend) -> {
+            universalResponse.getFriends().put(vkId, new UserDTO.Builder(friend).setDefaultConfig().build());
+        });
+        return universalResponse;
     }
 
     @Override

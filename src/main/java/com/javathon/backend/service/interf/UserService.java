@@ -6,9 +6,8 @@ import com.javathon.backend.util.UniversalResponse;
 
 public interface UserService {
     void saveUser(User user);
-    User getUserByImei(long imei);
-    void getFriendsPosition(UniversalResponse universalResponse);
+    User getUserById(long id);
     String getToken();
     String getShortToken();
-    
+    UniversalResponse updatePosition(UserDTO userDTO);
 }
