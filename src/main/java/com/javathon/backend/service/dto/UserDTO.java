@@ -17,18 +17,18 @@ public class UserDTO {
     final long id;
     @JsonProperty("imei")
     final long imei;
-    @JsonProperty("vk_id")
+    @JsonProperty("vkId")
     final long vk_id;
     @JsonProperty("username")
     final String username;
-    @JsonProperty("last_latitude")
-    final double last_latitude;
-    @JsonProperty("last_longitude")
-    final double last_longitude;
+    @JsonProperty("lastLatitude")
+    final double lastLatitude;
+    @JsonProperty("lastLongitude")
+    final double lastLongitude;
     @JsonProperty("isVisible")
     final boolean isVisible;
-    @JsonProperty("last_seen_date")
-    final LocalDateTime last_seen_date;
+    @JsonProperty("lastSeenDate")
+    final LocalDateTime localDateTime;
     @JsonProperty("friends")
     final List<UserDTO> userDTOList;
 
@@ -39,18 +39,18 @@ public class UserDTO {
         private long id;
         @JsonProperty("imei")
         private long imei;
-        @JsonProperty("vk_id")
+        @JsonProperty("vkId")
         private long vk_id;
         @JsonProperty("username")
         private String username;
-        @JsonProperty("last_latitude")
-        private double last_latitude;
-        @JsonProperty("last_longitude")
-        private double last_longitude;
+        @JsonProperty("lastLatitude")
+        private double lastLatitude;
+        @JsonProperty("lastLongitude")
+        private double lastLongitude;
         @JsonProperty("isVisible")
         private boolean isVisible;
-        @JsonProperty("last_seen_date")
-        private LocalDateTime last_seen_date;
+        @JsonProperty("lastSeenDate")
+        private LocalDateTime lastSeenDate;
         @JsonProperty("friends")
         private List<UserDTO> userDTOList = new ArrayList<>();
 
@@ -65,12 +65,12 @@ public class UserDTO {
 
         public Builder setDefaultConfig() {
             this.imei = this.user.getImei();
-            this.vk_id = this.user.getVk_id();
+            this.vk_id = this.user.getVkId();
             this.username = this.user.getUsername();
-            this.last_latitude = this.user.getLast_latitude();
-            this.last_longitude = this.user.getLast_longitude();
+            this.lastLatitude = this.user.getLastLatitude();
+            this.lastLongitude = this.user.getLastLongitude();
             this.isVisible = this.user.isVisible();
-            this.last_seen_date = this.user.getLast_seen_date();
+            this.lastSeenDate = this.user.getLastSeenDate();
             return this;
         }
 
@@ -90,10 +90,10 @@ public class UserDTO {
         this.imei = builder.imei;
         this.vk_id = builder.vk_id;
         this.username = builder.username;
-        this.last_latitude = builder.last_latitude;
-        this.last_longitude = builder.last_longitude;
+        this.lastLatitude = builder.lastLatitude;
+        this.lastLongitude = builder.lastLongitude;
         this.isVisible = builder.isVisible;
-        this.last_seen_date = builder.last_seen_date;
+        this.localDateTime = builder.lastSeenDate;
         this.userDTOList = getUserDTOList();
     }
 

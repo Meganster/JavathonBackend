@@ -13,12 +13,12 @@ public class UserConverter {
         User user = new User();
         user.setId(userDTO.getId());
         user.setImei(userDTO.getImei());
-        user.setLast_latitude(userDTO.getLast_latitude());
-        user.setLast_longitude(userDTO.getLast_longitude());
+        user.setLastLatitude(userDTO.getLastLatitude());
+        user.setLastLongitude(userDTO.getLastLongitude());
         user.setUsername(userDTO.getUsername());
-        user.setVk_id(userDTO.getVk_id());
+        user.setVkId(userDTO.getVk_id());
         user.setVisible(userDTO.isVisible());
-        user.setLast_seen_date(userDTO.getLast_seen_date());
+        user.setLastSeenDate(userDTO.getLocalDateTime());
         user.setFriend(new HashMap<>());
         return user;
     }

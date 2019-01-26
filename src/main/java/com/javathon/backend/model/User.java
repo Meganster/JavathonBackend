@@ -16,15 +16,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long imei;
-    private long vk_id;
+    private long vkId;
 
     private String username;
-    private double last_latitude;
-    private double last_longitude;
+    private double lastLatitude;
+    private double lastLongitude;
 
     private boolean isVisible;
 
-    private LocalDateTime last_seen_date;
+    private LocalDateTime lastSeenDate;
 
     private String token;
     private String recovery_code;
