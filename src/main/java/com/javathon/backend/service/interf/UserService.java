@@ -9,5 +9,6 @@ public interface UserService {
     User getUserByImei(long imei);
     void getFriendsPosition(UniversalResponse universalResponse);
     String getToken();
+    String getShortToken();
     
 }

@@ -4,6 +4,7 @@ import com.javathon.backend.dao.UserDao;
 import com.javathon.backend.model.User;
 import com.javathon.backend.service.dto.UserDTO;
 import com.javathon.backend.service.interf.UserService;
+import com.javathon.backend.util.RandomString;
 import com.javathon.backend.util.UniversalResponse;
 import com.javathon.backend.util.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getToken() {
         return passwordEncoder.encode(UUID.randomUUID().toString());
+    }
+
+    @Override
+    public String getShortToken() {
+        return RandomString.getShortTokenString();
     }
 }

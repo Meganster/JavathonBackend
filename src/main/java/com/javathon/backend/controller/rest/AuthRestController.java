@@ -1,6 +1,7 @@
 package com.javathon.backend.controller.rest;
 
 import com.javathon.backend.model.User;
+import com.javathon.backend.service.dto.AuthDTO;
 import com.javathon.backend.service.dto.UserDTO;
 
 import com.javathon.backend.util.UserConverter;
@@ -39,11 +40,17 @@ public class AuthRestController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errors);
         }
         String token = userService.getToken();
+        String shortToken = userService.getShortToken();
         User user = userConverter.convert(userDTO);
         user.setToken(token);
+        user.setRecovery_code(shortToken);
         userService.saveUser(user);
-        return ResponseEntity.ok(token);
+        AuthDTO authDTO = new AuthDTO(token, shortToken);
+        return ResponseEntity.ok(authDTO);
     }
+
+    @PostMapping(path = "/recovery")
+    public ResponseEntity recovery
 
     @InitBinder
     protected void initBinder(WebDataBinder bind) {
