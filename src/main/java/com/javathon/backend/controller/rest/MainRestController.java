@@ -14,7 +14,7 @@ public class MainRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/update_position")
+    @PostMapping("/update_position")
     public ResponseEntity updatePosition(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.updatePosition(userDTO));
     }

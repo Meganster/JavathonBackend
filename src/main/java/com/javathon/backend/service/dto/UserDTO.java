@@ -1,5 +1,6 @@
 package com.javathon.backend.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -11,24 +12,28 @@ import java.util.List;
 
 @Getter
 @JsonDeserialize(builder = UserDTO.Builder.class)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 
     @JsonProperty("id")
-    final long id;
+    private final long id;
     @JsonProperty("vkId")
-    final long vk_id;
+    private final long vkId;
     @JsonProperty("username")
-    final String username;
+    private final String username;
+    @JsonProperty("recoveryCode")
+    private String recoveryCode;
     @JsonProperty("lastLatitude")
-    final double lastLatitude;
+    private final double lastLatitude;
     @JsonProperty("lastLongitude")
-    final double lastLongitude;
+    private final double lastLongitude;
     @JsonProperty("isVisible")
-    final boolean isVisible;
+    private final boolean isVisible;
     @JsonProperty("lastSeenDate")
-    final LocalDateTime localDateTime;
+    private final LocalDateTime localDateTime;
     @JsonProperty("friends")
-    final List<UserDTO> userDTOList;
+    private final List<UserDTO> userDTOList;
+
 
     @JsonPOJOBuilder
     public static class Builder {
@@ -82,7 +87,7 @@ public class UserDTO {
 
     private UserDTO (Builder builder) {
         this.id = builder.id;
-        this.vk_id = builder.vkId;
+        this.vkId = builder.vkId;
         this.username = builder.username;
         this.lastLatitude = builder.lastLatitude;
         this.lastLongitude = builder.lastLongitude;
