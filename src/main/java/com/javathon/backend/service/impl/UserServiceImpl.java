@@ -2,11 +2,11 @@ package com.javathon.backend.service.impl;
 
 import com.javathon.backend.dao.UserDao;
 import com.javathon.backend.model.User;
+import com.javathon.backend.security.Interceptors.MainInterceptor;
 import com.javathon.backend.service.dto.UserDTO;
 import com.javathon.backend.service.interf.UserService;
 import com.javathon.backend.util.RandomString;
 import com.javathon.backend.util.UniversalResponse;
-import com.javathon.backend.util.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,11 +18,13 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
+    private final MainInterceptor mainInterceptor;
 
     @Autowired
-    public UserServiceImpl (UserDao userDao, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder, MainInterceptor mainInterceptor) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
+        this.mainInterceptor = mainInterceptor;
     }
     @Override
     public void saveUser(User user) {
@@ -51,6 +53,22 @@ public class UserServiceImpl implements UserService {
         user.getFriend().forEach((vkId, friend) -> {
             universalResponse.getFriends().put(vkId, new UserDTO.Builder(friend).setDefaultConfig().build());
         });
+
+        universalResponse.setSuccess(true);
+        return universalResponse;
+    }
+
+    @Override
+    public UniversalResponse getFriendPosition(long id) {
+        UniversalResponse universalResponse = new UniversalResponse();
+        User user = userDao.findUserByToken(mainInterceptor.getToken());
+        if(user == null) {
+            universalResponse.setSuccess(false);
+            return universalResponse;
+        }
+        UserDTO userDTO = new UserDTO.Builder(user).setDefaultConfig().build();
+        universalResponse.setFriend(userDTO);
+        universalResponse.setSuccess(true);
         return universalResponse;
     }
 
