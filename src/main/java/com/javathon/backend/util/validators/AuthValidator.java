@@ -1,16 +1,30 @@
 package com.javathon.backend.util.validators;
 
+import com.javathon.backend.dao.UserDao;
+import com.javathon.backend.model.User;
+import com.javathon.backend.service.dto.UserDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Component
 public class AuthValidator implements Validator {
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return false;
+    private final UserDao userDao;
+
+    @Autowired
+    public AuthValidator(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
+    public boolean supports(Class<?> clazz) {
+        return UserDTO.class.equals(clazz);
+    }
 
+    @Override
+    public void validate(Object target, Errors errors) {
+        UserDTO userDTO = (UserDTO) target;
+//        userDao.findById(userDTO.getId());
     }
 }
