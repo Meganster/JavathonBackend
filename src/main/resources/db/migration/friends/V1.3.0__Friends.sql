@@ -5,6 +5,6 @@ create table if not exists friends(
 	friend_id bigint not null
 		constraint fk7o3980stmrphchidesxi1pt3d
 			references users,
-	constraint friends_pkey
+	constraint friend_pkey
 		primary key (user_id, friend_id)
 );
