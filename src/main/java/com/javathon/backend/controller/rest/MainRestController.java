@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainRestController {
     @GetMapping("/friends_position")
     public ResponseEntity getFriendPosition() {
+
         return ResponseEntity.ok("ok");
     }
 }
