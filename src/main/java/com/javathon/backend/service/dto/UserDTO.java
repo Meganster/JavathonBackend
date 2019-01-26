@@ -15,8 +15,6 @@ public class UserDTO {
 
     @JsonProperty("id")
     final long id;
-    @JsonProperty("imei")
-    final long imei;
     @JsonProperty("vkId")
     final long vk_id;
     @JsonProperty("username")
@@ -37,10 +35,8 @@ public class UserDTO {
         private User user;
 
         private long id;
-        @JsonProperty("imei")
-        private long imei;
         @JsonProperty("vkId")
-        private long vk_id;
+        private long vkId;
         @JsonProperty("username")
         private String username;
         @JsonProperty("lastLatitude")
@@ -64,8 +60,7 @@ public class UserDTO {
         }
 
         public Builder setDefaultConfig() {
-            this.imei = this.user.getImei();
-            this.vk_id = this.user.getVkId();
+            this.vkId = this.user.getVkId();
             this.username = this.user.getUsername();
             this.lastLatitude = this.user.getLastLatitude();
             this.lastLongitude = this.user.getLastLongitude();
@@ -87,8 +82,7 @@ public class UserDTO {
 
     private UserDTO (Builder builder) {
         this.id = builder.id;
-        this.imei = builder.imei;
-        this.vk_id = builder.vk_id;
+        this.vk_id = builder.vkId;
         this.username = builder.username;
         this.lastLatitude = builder.lastLatitude;
         this.lastLongitude = builder.lastLongitude;
