@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public FilterRegistrationBean<AuthTokenFilter> FilterRegistration() {
+    public FilterRegistrationBean<AuthTokenFilter> FilterRegistration1() {
         FilterRegistrationBean<AuthTokenFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(authTokenFilter);
         registration.setOrder(Integer.MIN_VALUE);

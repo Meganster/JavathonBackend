@@ -1,9 +1,12 @@
 package com.javathon.backend.controller.rest;
 
 import com.javathon.backend.model.User;
-import com.javathon.backend.service.UserService;
 import com.javathon.backend.service.dto.UserDTO;
+<<<<<<< HEAD
 import com.javathon.backend.util.UserConverter;
+=======
+import com.javathon.backend.service.interf.UserService;
+>>>>>>> ef6456f03ae9a5ae536a725bcf9791ac87512f46
 import com.javathon.backend.util.validators.AuthValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,11 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.xml.validation.Validator;
 
 @RestController
 @RequestMapping(path = "/api")
