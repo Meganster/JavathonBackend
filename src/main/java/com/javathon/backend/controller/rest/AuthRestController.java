@@ -1,4 +1,4 @@
-package com.javathon.backend.controller;
+package com.javathon.backend.controller.rest;
 
 import com.javathon.backend.model.User;
 import com.javathon.backend.service.UserService;
@@ -17,13 +17,13 @@ import javax.xml.validation.Validator;
 
 @RestController
 @RequestMapping(path = "/api")
-public class MainController {
+public class AuthRestController {
 
     private final UserService userService;
     private final AuthValidator authValidator;
 
     @Autowired
-    public MainController(UserService userService, AuthValidator authValidator) {
+    public AuthRestController(UserService userService, AuthValidator authValidator) {
         this.userService = userService;
         this.authValidator = authValidator;
     }
