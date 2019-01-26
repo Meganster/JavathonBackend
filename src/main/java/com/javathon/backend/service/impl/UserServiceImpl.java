@@ -24,21 +24,25 @@ public class UserServiceImpl implements UserService {
         this.userConverter = userConverter;
         this.passwordEncoder = passwordEncoder;
     }
+    @Override
     public void saveUser(User user) {
         userDao.save(user);
     }
 
+    @Override
     public User getUserByImei(long imei) {
         return userDao.findByImei(imei);
     }
 
     @Override
-    public void getFriendsPosition(UniversalResponse universalResponse) {
-
+    public String getToken() {
+        return passwordEncoder.encode(UUID.randomUUID().toString());
     }
 
     @Override
-    public String getToken() {
-        return passwordEncoder.encode(UUID.randomUUID().toString());
+    public UniversalResponse updatePosition(UserDTO userDTO) {
+        UniversalResponse universalResponse = new UniversalResponse();
+
+        return universalResponse;
     }
 }
