@@ -15,6 +15,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long imei;
+    private long vk_id;
 
     private String username;
     private double last_latitude;
