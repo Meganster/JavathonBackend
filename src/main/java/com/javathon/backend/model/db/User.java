@@ -1,10 +1,13 @@
 package com.javathon.backend.model.db;
 
+import com.javathon.backend.model.db.events.impl.EventMessage;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Data
 @Entity
@@ -14,9 +17,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String imei;
     private long vkId;
 
+    private String imei;
     private String username;
     private double lastLatitude;
     private double lastLongitude;
@@ -29,9 +32,8 @@ public class User {
     private String token;
     private String recovery_code;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
-//    @OrderBy(value = "id ASC")
-//    private List<Poll> polls;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "author")
+    private List<EventMessage> messages;
 
     @ElementCollection(targetClass = User.class)
     @CollectionTable(name = "friends", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "friend_id"}, name = "friends")})

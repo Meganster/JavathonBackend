@@ -2,9 +2,12 @@ package com.javathon.backend.service.impl;
 
 import com.javathon.backend.dao.UserDao;
 import com.javathon.backend.model.db.User;
+import com.javathon.backend.model.db.events.impl.EventMessage;
 import com.javathon.backend.security.Interceptors.MainInterceptor;
+import com.javathon.backend.service.dto.MessageDTO;
 import com.javathon.backend.service.dto.UserDTO;
 import com.javathon.backend.service.interf.UserService;
+import com.javathon.backend.util.MessageConverter;
 import com.javathon.backend.util.RandomString;
 import com.javathon.backend.util.UniversalResponse;
 import com.javathon.backend.util.UserConverter;
@@ -13,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -80,26 +85,49 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UniversalResponse setVisible(boolean isVisible) {
-        UniversalResponse universalResponse = new UniversalResponse();
         User user = userDao.findUserByToken(mainInterceptor.getToken());
         user.setVisible(isVisible);
         userDao.save(user);
-        universalResponse.setSuccess(true);
-        return universalResponse;
+        return UniversalResponse.OK();
     }
 
     @Override
     public UniversalResponse addFriend(UserDTO userDTO) {
-        UniversalResponse universalResponse = new UniversalResponse();
         User user = userDao.findUserByToken(mainInterceptor.getToken());
         User friend = userDao.findByVkId(userDTO.getVkId());
         if(friend == null && user.getFriend().containsKey(friend.getVkId())){
-            universalResponse.setSuccess(false);
-            return null;
+            return UniversalResponse.BAD();
         }
         user.getFriend().put(userDTO.getVkId(), UserConverter.convertUserDTOToUser(userDTO));
         userDao.save(user);
-        universalResponse.setSuccess(true);
+        return UniversalResponse.OK();
+    }
+
+    @Override
+    public UniversalResponse createMessage(MessageDTO messageDTO) {
+        User user = userDao.findUserByToken(mainInterceptor.getToken());
+        EventMessage eventMessage = MessageConverter.convertMessageDTOToEventMessage(messageDTO);
+        eventMessage.setAuthor(user);
+        userDao.save(user);
+        return UniversalResponse.OK();
+    }
+
+    @Override
+    public UniversalResponse getFriendsMessages(){
+        User user = userDao.findUserByToken(mainInterceptor.getToken());
+        UniversalResponse universalResponse = new UniversalResponse();
+        if(!user.isVisibleMessage()){
+           return UniversalResponse.BAD();
+        }
+        user.getFriend().forEach((key, friend) -> {
+            List<MessageDTO> messages = new ArrayList<>();
+            if(friend.getMessages().size() != 0) {
+                friend.getMessages().forEach(eventMessage -> {
+                    messages.add(new MessageDTO.Builder(eventMessage).setDefault_config().build());
+                });
+            }
+            universalResponse.getMessages().put(key, messages);
+        });
         return universalResponse;
     }
 

@@ -1,5 +1,6 @@
 package com.javathon.backend.controller.rest;
 
+import com.javathon.backend.service.dto.MessageDTO;
 import com.javathon.backend.service.dto.UserDTO;
 import com.javathon.backend.service.interf.UserService;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +28,10 @@ public class UserRestController {
     @PostMapping("/addFriend")
     public ResponseEntity addFriend(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.addFriend(userDTO));
+    }
+
+    @PostMapping("/createMessage")
+    public ResponseEntity createMessage(@RequestBody MessageDTO messageDTO) {
+        return ResponseEntity.ok("");
     }
 }
