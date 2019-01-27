@@ -1,6 +1,5 @@
 package com.javathon.backend.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -17,14 +16,23 @@ import java.util.List;
 @JsonDeserialize(builder = UserDTO.Builder.class)
 public class UserDTO {
     private final long id;
+    @JsonProperty("vkId")
     private final long vkId;
+    @JsonProperty("username")
     private final String username;
-    private final String recovery_code;
+    @JsonProperty("recoveryCode")
+    private final String recoveryCode;
+    @JsonProperty("imei")
     private final long imei;
-    private final double last_latitude;
-    private final double last_longitude;
+    @JsonProperty("lastLatitude")
+    private final double lastLatitude;
+    @JsonProperty("lastLongitude")
+    private final double lastLongitude;
+    @JsonProperty("isVisible")
     private final boolean isVisible;
-    private final LocalDateTime last_seen_date;
+    @JsonProperty("lastSeenDate")
+    private final LocalDateTime lastSeenDate;
+    @JsonProperty("friends")
     private final List<UserDTO> userDTOList;
 
 
@@ -33,22 +41,22 @@ public class UserDTO {
         private User user;
 
         private long id;
-        @JsonProperty("vk_id")
+        @JsonProperty("vkId")
         private long vkId;
         @JsonProperty("username")
         private String username;
-        @JsonProperty("recovery_code")
-        private String recovery_code;
+        @JsonProperty("recoveryCode")
+        private String recoveryCode;
         @JsonProperty("imei")
         private long imei;
-        @JsonProperty("last_latitude")
-        private double last_latitude;
-        @JsonProperty("last_longitude")
-        private double last_longitude;
+        @JsonProperty("lastLatitude")
+        private double lastLatitude;
+        @JsonProperty("lastLongitude")
+        private double lastLongitude;
         @JsonProperty("isVisible")
         private boolean isVisible;
-        @JsonProperty("last_seen_date")
-        private LocalDateTime last_seen_date;
+        @JsonProperty("lastSeenDate")
+        private LocalDateTime lastSeenDate;
         @JsonProperty("friends")
         private List<UserDTO> userDTOList = new ArrayList<>();
 
@@ -63,10 +71,10 @@ public class UserDTO {
         public Builder setDefault_config() {
             this.vkId = this.user.getVkId();
             this.username = this.user.getUsername();
-            this.last_latitude = this.user.getLastLatitude();
-            this.last_longitude = this.user.getLastLongitude();
+            this.lastLatitude = this.user.getLastLatitude();
+            this.lastLongitude = this.user.getLastLongitude();
             this.isVisible = this.user.isVisible();
-            this.last_seen_date = this.user.getLastSeenDate();
+            this.lastSeenDate = this.user.getLastSeenDate();
             return this;
         }
 
@@ -88,12 +96,12 @@ public class UserDTO {
         this.id = builder.id;
         this.vkId = builder.vkId;
         this.username = builder.username;
-        this.last_latitude= builder.last_latitude;
-        this.last_longitude = builder.last_longitude;
+        this.lastLatitude = builder.lastLatitude;
+        this.lastLongitude = builder.lastLongitude;
         this.isVisible = builder.isVisible;
-        this.last_seen_date = builder.last_seen_date;
+        this.lastSeenDate = builder.lastSeenDate;
         this.userDTOList = builder.userDTOList;
         this.imei = builder.imei;
-        this.recovery_code = builder.recovery_code;
+        this.recoveryCode = builder.recoveryCode;
     }
 }
