@@ -30,6 +30,8 @@ public class UserDTO {
     private final double lastLongitude;
     @JsonProperty("isVisible")
     private final boolean isVisible;
+    @JsonProperty("isVisibleMessage")
+    private final boolean isVisibleMessage;
     @JsonProperty("lastSeenDate")
     private final LocalDateTime lastSeenDate;
     @JsonProperty("friends")
@@ -55,6 +57,8 @@ public class UserDTO {
         private double lastLongitude;
         @JsonProperty("isVisible")
         private boolean isVisible;
+        @JsonProperty("isVisibleMessage")
+        private boolean isVisibleMessage;
         @JsonProperty("lastSeenDate")
         private LocalDateTime lastSeenDate;
         @JsonProperty("friends")
@@ -103,5 +107,6 @@ public class UserDTO {
         this.userDTOList = builder.userDTOList;
         this.imei = builder.imei;
         this.recoveryCode = builder.recoveryCode;
+        this.isVisibleMessage = builder.isVisibleMessage;
     }
 }
