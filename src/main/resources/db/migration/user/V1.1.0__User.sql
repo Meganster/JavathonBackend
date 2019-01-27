@@ -1,7 +1,7 @@
 
 CREATE TABLE IF NOT EXISTS users (
   id BIGSERIAL PRIMARY KEY ,
-  imei VARCHAR(255) NOT NULL ,
+  imei VARCHAR(255),
   vk_id BIGINT NOT NULL ,
   username VARCHAR(255),
   last_latitude DOUBLE PRECISION,

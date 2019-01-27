@@ -6,7 +6,7 @@ import com.javathon.backend.util.UniversalResponse;
 
 public interface UserService {
     void saveUser(User user);
-    User getUserById(long id);
+    User getUserByVkId(long id);
     String getToken();
     String getShortToken();
     UniversalResponse updatePosition(UserDTO userDTO);

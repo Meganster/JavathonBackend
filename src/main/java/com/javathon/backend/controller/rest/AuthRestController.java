@@ -46,18 +46,11 @@ public class AuthRestController {
     @PostMapping(path = "/recovery")
     public ResponseEntity recovery(@RequestBody UserDTO userDTO) {
         logger.info("recovery");
-        User existUser = userService.getUserById(userDTO.getVkId());
+        User existUser = userService.getUserByVkId(userDTO.getVkId());
         if (!existUser.getRecovery_code().equals(userDTO.getRecoveryCode())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
         }
-        existUser.setImei(userDTO.getImei());
-        String token = userService.getToken();
-        String shortToken = userService.getShortToken();
-        existUser.setToken(token);
-        existUser.setRecovery_code(shortToken);
-        userService.saveUser(existUser);
-        AuthDTO authDTO = new AuthDTO(token, shortToken);
-        return ResponseEntity.ok(authDTO);
+        return ResponseEntity.ok(authService.recovery(existUser, userDTO));
     }
 
     @InitBinder
