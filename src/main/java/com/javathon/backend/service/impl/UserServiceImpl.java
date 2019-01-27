@@ -60,14 +60,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UniversalResponse getFriendPosition(long id) {
+    public UniversalResponse getFriendPosition(long friend_id) {
         UniversalResponse universalResponse = new UniversalResponse();
         User user = userDao.findUserByToken(mainInterceptor.getToken());
         if(user == null) {
             universalResponse.setSuccess(false);
             return universalResponse;
         }
-        UserDTO userDTO = new UserDTO.Builder(user).setDefault_config().build();
+        User friend = user.getFriend().get(friend_id);
+        if(friend == null) {
+            universalResponse.setSuccess(false);
+            return universalResponse;
+        }
+        UserDTO userDTO = new UserDTO.Builder(friend).setDefault_config().build();
         universalResponse.setFriend(userDTO);
         universalResponse.setSuccess(true);
         return universalResponse;
