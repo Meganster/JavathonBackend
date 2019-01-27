@@ -7,7 +7,6 @@ import com.javathon.backend.service.dto.UserDTO;
 import com.javathon.backend.service.interf.UserService;
 import com.javathon.backend.util.RandomString;
 import com.javathon.backend.util.UniversalResponse;
-import com.javathon.backend.util.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,14 +46,13 @@ public class UserServiceImpl implements UserService {
         UniversalResponse universalResponse = new UniversalResponse();
         //Update user
         User user = userDao.findByVkId(userDTO.getVkId());
-        user.setLastLatitude(userDTO.getLastLatitude());
-        user.setLastLongitude(userDTO.getLastLongitude());
+        user.setLastLatitude(userDTO.getLast_latitude());
+        user.setLastLongitude(userDTO.getLast_longitude());
         user.setLastSeenDate(LocalDateTime.now());
         //Send friends position
 
         user.getFriend().forEach((vkId, friend) -> {
-//            universalResponse.getFriends().put(vkId, new UserDTO.Builder(friend).setDefaultConfig().build());
-            universalResponse.getFriends().put(vkId, UserConverter.convertUserToUserDTO(friend));
+            universalResponse.getFriends().put(vkId, new UserDTO.Builder(friend).setDefault_config().build());
         });
 
         universalResponse.setSuccess(true);
@@ -69,7 +67,7 @@ public class UserServiceImpl implements UserService {
             universalResponse.setSuccess(false);
             return universalResponse;
         }
-        UserDTO userDTO = UserConverter.convertUserToUserDTO(user);
+        UserDTO userDTO = new UserDTO.Builder(user).setDefault_config().build();
         universalResponse.setFriend(userDTO);
         universalResponse.setSuccess(true);
         return universalResponse;
