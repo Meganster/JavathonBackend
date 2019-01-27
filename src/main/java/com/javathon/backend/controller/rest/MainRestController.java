@@ -18,4 +18,9 @@ public class MainRestController {
     public ResponseEntity updatePosition(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.updatePosition(userDTO));
     }
+
+    @GetMapping("/friend_position/{vkId}")
+    public ResponseEntity getFriendPosition(@PathVariable long vkId) {
+        return ResponseEntity.ok(userService.getFriendPosition(vkId));
+    }
 }

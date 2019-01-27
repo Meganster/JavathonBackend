@@ -10,4 +10,5 @@ public interface UserService {
     String getToken();
     String getShortToken();
     UniversalResponse updatePosition(UserDTO userDTO);
+    UniversalResponse getFriendPosition(long id);
 }
