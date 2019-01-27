@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
                 user.getFriend().put(target.getVkId(), target);
             }
         }
-
+        user.setVisible(true);
         userService.saveUser(user);
         AuthDTO authDTO = new AuthDTO(token, shortToken);
         universalResponse.setSuccess(true);
