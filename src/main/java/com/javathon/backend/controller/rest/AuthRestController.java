@@ -31,6 +31,7 @@ public class AuthRestController {
 
     @PostMapping(path = "/auth")
     public ResponseEntity create(@Valid UserDTO userDTO, Errors errors) {
+        System.out.println("auth");
         if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errors);
         }
@@ -57,6 +58,11 @@ public class AuthRestController {
         userService.saveUser(existUser);
         AuthDTO authDTO = new AuthDTO(token, shortToken);
         return ResponseEntity.ok(authDTO);
+    }
+
+    @GetMapping(path = "/test")
+    public ResponseEntity test() {
+        return ResponseEntity.ok("topchick");
     }
 
     @InitBinder
