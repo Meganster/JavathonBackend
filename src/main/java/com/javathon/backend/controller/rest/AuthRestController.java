@@ -32,7 +32,6 @@ public class AuthRestController {
 
     @PostMapping(path = "/auth")
     public ResponseEntity create(@Valid @RequestBody UserDTO userDTO, Errors errors) {
-        System.out.println("auth");
         if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Misc.buildErrorResponse(errors));
         }
