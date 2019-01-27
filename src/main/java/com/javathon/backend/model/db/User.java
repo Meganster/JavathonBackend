@@ -6,9 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -35,10 +33,10 @@ public class User {
     private String recovery_code;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "author")
-    private List<EventMessage> messages;
+    private List<EventMessage> messages = new ArrayList<>();
 
     @ElementCollection(targetClass = User.class)
     @CollectionTable(name = "friends", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "friend_id"}, name = "friends")})
     @MapKey(name="id")
-    private Map<Long, User> friend;
+    private Map<Long, User> friend = new HashMap<>();
 }
