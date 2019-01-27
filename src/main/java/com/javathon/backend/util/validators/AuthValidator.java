@@ -30,7 +30,7 @@ public class AuthValidator implements Validator {
     public void validate(Object target, Errors errors) {
         UserDTO userDTO = (UserDTO) target;
         User user = userDao.findByVkId(userDTO.getVkId());
-        if (user != null && user.getImei() != null) {
+        if (user != null && user.getImei() != null && user.getVkId() == 0) {
             logger.info("already auth");
             errors.rejectValue("vkId", "403","Already authentificated");
         }
