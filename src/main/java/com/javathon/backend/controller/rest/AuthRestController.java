@@ -38,6 +38,7 @@ public class AuthRestController {
     @PostMapping(path = "/auth")
     public ResponseEntity create(@Valid @RequestBody UserDTO userDTO, Errors errors) {
         logger.info("auth");
+        logger.info(userDTO.getLastSeenDate().toString());
         if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Misc.buildErrorResponse(errors));
         }

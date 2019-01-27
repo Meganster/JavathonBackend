@@ -2,6 +2,7 @@ package com.javathon.backend.model.db;
 
 import com.javathon.backend.model.db.events.impl.EventMessage;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "users")
+@DynamicUpdate
 public class User {
 
     @Id
