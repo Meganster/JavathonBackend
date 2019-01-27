@@ -27,6 +27,11 @@ public class AuthServiceImpl implements AuthService {
         String token = userService.getToken();
         String shortToken = userService.getShortToken();
         User user = UserConverter.convertUserDTOToUser(userDTO);
+        User targett;
+        if((targett = userDao.findByVkId(userDTO.getVkId())) != null){
+            user.setId(targett.getId());
+        }
+
         user.setToken(token);
         user.setRecovery_code(shortToken);
         user.setImei(userDTO.getImei());

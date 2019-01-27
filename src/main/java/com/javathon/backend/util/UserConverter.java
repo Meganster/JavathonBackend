@@ -9,7 +9,6 @@ public class UserConverter {
 
     public static User convertUserDTOToUser(UserDTO userDTO) {
         User user = new User();
-        user.setId(userDTO.getId());
         user.setLastLatitude(userDTO.getLastLatitude());
         user.setLastLongitude(userDTO.getLastLongitude());
         user.setUsername(userDTO.getUsername());
