@@ -1,6 +1,6 @@
 package com.javathon.backend.util;
 
-import com.javathon.backend.model.User;
+import com.javathon.backend.model.db.User;
 import com.javathon.backend.service.dto.UserDTO;
 
 import java.util.HashMap;

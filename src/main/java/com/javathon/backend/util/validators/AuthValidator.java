@@ -1,7 +1,7 @@
 package com.javathon.backend.util.validators;
 
 import com.javathon.backend.dao.UserDao;
-import com.javathon.backend.model.User;
+import com.javathon.backend.model.db.User;
 import com.javathon.backend.service.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

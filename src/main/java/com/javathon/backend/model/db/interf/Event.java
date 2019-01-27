@@ -1,4 +1,4 @@
-package com.javathon.backend.model.events.interf;
+package com.javathon.backend.model.db.events.interf;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

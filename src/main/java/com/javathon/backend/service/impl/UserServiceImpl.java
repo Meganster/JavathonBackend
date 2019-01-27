@@ -1,7 +1,7 @@
 package com.javathon.backend.service.impl;
 
 import com.javathon.backend.dao.UserDao;
-import com.javathon.backend.model.User;
+import com.javathon.backend.model.db.User;
 import com.javathon.backend.security.Interceptors.MainInterceptor;
 import com.javathon.backend.service.dto.UserDTO;
 import com.javathon.backend.service.interf.UserService;

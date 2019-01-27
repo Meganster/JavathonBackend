@@ -3,7 +3,7 @@ package com.javathon.backend.service.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.javathon.backend.model.User;
+import com.javathon.backend.model.db.User;
 import lombok.Getter;
 import lombok.Setter;
 
