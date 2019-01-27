@@ -54,7 +54,9 @@ public class UserServiceImpl implements UserService {
         //Send friends position
 
         user.getFriend().forEach((vkId, friend) -> {
-            universalResponse.getFriends().put(vkId, new UserDTO.Builder(friend).setDefault_config().build());
+            if(friend.isVisible()) {
+                universalResponse.getFriends().put(vkId, new UserDTO.Builder(friend).setDefault_config().build());
+            }
         });
 
         universalResponse.setSuccess(true);
