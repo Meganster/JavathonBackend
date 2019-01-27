@@ -23,7 +23,7 @@ public class UserDTO {
     @JsonProperty("recoveryCode")
     private final String recoveryCode;
     @JsonProperty("imei")
-    private final long imei;
+    private final String imei;
     @JsonProperty("lastLatitude")
     private final double lastLatitude;
     @JsonProperty("lastLongitude")
@@ -50,7 +50,7 @@ public class UserDTO {
         @JsonProperty("recoveryCode")
         private String recoveryCode;
         @JsonProperty("imei")
-        private long imei;
+        private String imei;
         @JsonProperty("lastLatitude")
         private double lastLatitude;
         @JsonProperty("lastLongitude")

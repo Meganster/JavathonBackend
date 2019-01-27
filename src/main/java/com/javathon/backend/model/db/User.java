@@ -14,7 +14,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long imei;
+    private String imei;
     private long vkId;
 
     private String username;
