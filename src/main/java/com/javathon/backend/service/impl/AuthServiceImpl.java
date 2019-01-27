@@ -35,13 +35,14 @@ public class AuthServiceImpl implements AuthService {
 
         for (UserDTO friend : userDTO.getUserDTOList()) {
             User target;
-            if((target = userDao.findByVkId(friend.getVkId())) == null) {
+            if((target = userDao.findByVkId(friend.getVkId())) == null && friend.getVkId() != userDTO.getVkId()) {
                 target = new User();
                 target.setVkId(friend.getVkId());
                 target = userDao.save(target);
                 user.getFriend().put(target.getVkId(), target);
+            } else if (friend.getVkId() != userDTO.getVkId()) {
+                user.getFriend().put(target.getVkId(), target);
             }
-            user.getFriend().put(target.getVkId(), target);
         }
 
         userService.saveUser(user);

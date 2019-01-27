@@ -55,8 +55,6 @@ public class UserServiceImpl implements UserService {
         user.setLastLatitude(userDTO.getLastLatitude());
         user.setLastLongitude(userDTO.getLastLongitude());
         user.setLastSeenDate(LocalDateTime.now());
-        System.out.println(user.getId());
-        userDao.save(user);
         //Send friends position
 
         user.getFriend().forEach((vkId, friend) -> {
@@ -64,6 +62,7 @@ public class UserServiceImpl implements UserService {
                 universalResponse.getFriends().put(vkId, new UserDTO.Builder(friend).setDefault_config().build());
             }
         });
+        userDao.save(user);
 
         universalResponse.setSuccess(true);
         return universalResponse;
