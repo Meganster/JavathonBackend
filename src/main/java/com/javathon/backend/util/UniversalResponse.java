@@ -6,6 +6,7 @@ import com.javathon.backend.service.dto.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class UniversalResponse {
     private AuthDTO authDTO;
     private UserDTO friend;
     private Map<Long, List<MessageDTO>> messages = new HashMap<>();
-    private Map<Long, UserDTO> friends = new HashMap<>();
+    private List<UserDTO> friends = new ArrayList<>();
 
     public static UniversalResponse OK(){
         UniversalResponse universalResponse = new UniversalResponse();

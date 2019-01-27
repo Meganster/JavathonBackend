@@ -11,6 +11,8 @@ import com.javathon.backend.util.MessageConverter;
 import com.javathon.backend.util.RandomString;
 import com.javathon.backend.util.UniversalResponse;
 import com.javathon.backend.util.UserConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
     private final MainInterceptor mainInterceptor;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder, MainInterceptor mainInterceptor) {
@@ -59,7 +62,8 @@ public class UserServiceImpl implements UserService {
 
         user.getFriend().forEach((vkId, friend) -> {
             if(friend.isVisible()) {
-                universalResponse.getFriends().put(vkId, new UserDTO.Builder(friend).setDefault_config().build());
+                logger.info(String.valueOf(friend.getVkId()));
+                universalResponse.getFriends().add(new UserDTO.Builder(friend).setDefault_config().build());
             }
         });
         userDao.save(user);
