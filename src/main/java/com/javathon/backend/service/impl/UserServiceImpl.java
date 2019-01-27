@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
         UniversalResponse universalResponse = new UniversalResponse();
         //Update user
         User user = userDao.findByVkId(userDTO.getVkId());
-        user.setLastLatitude(userDTO.getLast_latitude());
-        user.setLastLongitude(userDTO.getLast_longitude());
+        user.setLastLatitude(userDTO.getLastLatitude());
+        user.setLastLongitude(userDTO.getLastLongitude());
         user.setLastSeenDate(LocalDateTime.now());
         //Send friends position
 

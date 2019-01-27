@@ -50,7 +50,7 @@ public class AuthRestController {
     @PostMapping(path = "/recovery")
     public ResponseEntity recovery(@Valid @RequestBody UserDTO userDTO) {
         User existUser = userService.getUserById(userDTO.getVkId());
-        if (!existUser.getRecovery_code().equals(userDTO.getRecovery_code())) {
+        if (!existUser.getRecovery_code().equals(userDTO.getRecoveryCode())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
         }
         existUser.setImei(userDTO.getImei());
