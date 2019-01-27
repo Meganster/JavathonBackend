@@ -8,6 +8,8 @@ import com.javathon.backend.util.Misc;
 import com.javathon.backend.util.UserConverter;
 import com.javathon.backend.service.interf.UserService;
 import com.javathon.backend.util.validators.AuthValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ public class AuthRestController {
 
     private final UserService userService;
     private final AuthValidator authValidator;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public AuthRestController(UserService userService, AuthValidator authValidator) {
@@ -32,6 +35,7 @@ public class AuthRestController {
 
     @PostMapping(path = "/auth")
     public ResponseEntity create(@Valid @RequestBody UserDTO userDTO, Errors errors) {
+        logger.info("auth");
         if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Misc.buildErrorResponse(errors));
         }
@@ -49,6 +53,7 @@ public class AuthRestController {
     }
     @PostMapping(path = "/recovery")
     public ResponseEntity recovery(@RequestBody UserDTO userDTO) {
+        logger.info("recovery");
         User existUser = userService.getUserById(userDTO.getVkId());
         if (!existUser.getRecovery_code().equals(userDTO.getRecoveryCode())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
