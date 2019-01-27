@@ -51,9 +51,9 @@ public class UserDTO {
         private String recoveryCode;
         @JsonProperty("imei")
         private String imei;
-        @JsonProperty("latitude")
+        @JsonProperty("lastLatitude")
         private double lastLatitude;
-        @JsonProperty("longitude")
+        @JsonProperty("lastLongitude")
         private double lastLongitude;
         @JsonProperty("isVisible")
         private boolean isVisible;
