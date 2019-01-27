@@ -54,6 +54,8 @@ public class UserServiceImpl implements UserService {
     public UniversalResponse updatePosition(UserDTO userDTO) {
         UniversalResponse universalResponse = new UniversalResponse();
         //Update user
+        logger.info(String.valueOf(userDTO.getLastLatitude()));
+        logger.info(String.valueOf(userDTO.getLastLongitude()));
         User user = userDao.findByVkId(userDTO.getVkId());
         user.setLastLatitude(userDTO.getLastLatitude());
         user.setLastLongitude(userDTO.getLastLongitude());

@@ -43,7 +43,6 @@ public class AuthTokenFilter extends GenericFilterBean {
                 try {
                     filterChain.doFilter(request, response);
                 } catch (Exception e) {
-                    SecurityContextHolder.getContext().setAuthentication(null);
                     logger.error("Failure in autoLogin", e);
                 }
                 httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
