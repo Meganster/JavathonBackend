@@ -19,16 +19,4 @@ public class UserConverter {
         user.setFriend(new HashMap<>());
         return user;
     }
-//    public static UserDTO convertUserToUserDTO(User user) {
-//        UserDTO userDTO = new UserDTO();
-//        userDTO.setId(user.getId());
-//        userDTO.setImei(user.getImei());
-//        userDTO.setLastLatitude(user.getLastLatitude());
-//        userDTO.setLastLongitude(user.getLastLongitude());
-//        userDTO.setLastSeenDate(user.getLastSeenDate());
-//        userDTO.setUsername(user.getUsername());
-//        userDTO.setVkId(user.getVkId());
-//        userDTO.setVisible(user.isVisible());
-//        return userDTO;
-//    }
 }
