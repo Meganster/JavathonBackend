@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         //Send friends position
 
         user.getFriend().forEach((vkId, friend) -> {
-            if(friend.isVisible()) {
+            if(friend.isVisible() && friend.getImei() != null) {
                 logger.info(String.valueOf(friend.getVkId()));
                 universalResponse.getFriends().add(new UserDTO.Builder(friend).setDefault_config().build());
             }
