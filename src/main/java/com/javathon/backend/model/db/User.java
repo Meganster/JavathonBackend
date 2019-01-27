@@ -1,10 +1,9 @@
-package com.javathon.backend.model;
+package com.javathon.backend.model.db;
 
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 @Data

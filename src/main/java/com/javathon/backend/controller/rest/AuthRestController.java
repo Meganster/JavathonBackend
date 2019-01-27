@@ -1,9 +1,10 @@
 package com.javathon.backend.controller.rest;
 
-import com.javathon.backend.model.User;
+import com.javathon.backend.model.db.User;
 import com.javathon.backend.service.dto.AuthDTO;
 import com.javathon.backend.service.dto.UserDTO;
 
+import com.javathon.backend.util.Misc;
 import com.javathon.backend.util.UserConverter;
 import com.javathon.backend.service.interf.UserService;
 import com.javathon.backend.util.validators.AuthValidator;
@@ -33,7 +34,7 @@ public class AuthRestController {
     public ResponseEntity create(@Valid @RequestBody UserDTO userDTO, Errors errors) {
         System.out.println("auth");
         if (errors.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errors);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Misc.buildErrorResponse(errors));
         }
         String token = userService.getToken();
         String shortToken = userService.getShortToken();
@@ -48,7 +49,7 @@ public class AuthRestController {
         return ResponseEntity.ok(authDTO);
     }
     @PostMapping(path = "/recovery")
-    public ResponseEntity recovery(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity recovery(@RequestBody UserDTO userDTO) {
         User existUser = userService.getUserById(userDTO.getVkId());
         if (!existUser.getRecovery_code().equals(userDTO.getRecoveryCode())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
