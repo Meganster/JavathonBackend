@@ -17,11 +17,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private AuthLoginFilter authLoginFilter;
     private AuthTokenFilter authTokenFilter;
 
     @Autowired
     public WebSecurityConfig(UserDao userDao) {
-        authTokenFilter = new AuthTokenFilter(userDao);
+        this.authTokenFilter = new AuthTokenFilter(userDao);
+        this.authLoginFilter = new AuthLoginFilter();
+
     }
 
     @Override
@@ -44,6 +47,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         registration.setFilter(authTokenFilter);
         registration.setOrder(Integer.MIN_VALUE);
         registration.addUrlPatterns("/rest/*");
+        return registration;
+    }
+
+    @Bean
+    public FilterRegistrationBean<AuthLoginFilter> FilterRegistration2() {
+        FilterRegistrationBean<AuthLoginFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(authLoginFilter);
+        registration.addUrlPatterns("/api/*");
+        registration.setOrder(Integer.MIN_VALUE);
         return registration;
     }
 
