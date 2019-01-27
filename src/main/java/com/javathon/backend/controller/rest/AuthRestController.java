@@ -30,27 +30,30 @@ public class AuthRestController {
     }
 
     @PostMapping(path = "/auth")
-    public ResponseEntity create(@Valid UserDTO userDTO, Errors errors) {
+    public ResponseEntity create(@Valid @RequestBody UserDTO userDTO, Errors errors) {
         System.out.println("auth");
         if (errors.hasErrors()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errors);
         }
         String token = userService.getToken();
         String shortToken = userService.getShortToken();
-        User user = UserConverter.convert(userDTO);
+        User user = UserConverter.convertUserDTOToUser(userDTO);
         user.setToken(token);
         user.setRecovery_code(shortToken);
+        user.setImei(userDTO.getImei());
+        user.setVkId(userDTO.getVkId());
+        user.setUsername(userDTO.getUsername());
         userService.saveUser(user);
         AuthDTO authDTO = new AuthDTO(token, shortToken);
         return ResponseEntity.ok(authDTO);
     }
     @PostMapping(path = "/recovery")
-    public ResponseEntity recovery(@RequestBody UserDTO userDTO) {
+    public ResponseEntity recovery(@Valid @RequestBody UserDTO userDTO) {
         User existUser = userService.getUserById(userDTO.getVkId());
         if (!existUser.getRecovery_code().equals(userDTO.getRecoveryCode())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("forbidden");
         }
-        existUser.setImei(userDTO.getImey());
+        existUser.setImei(userDTO.getImei());
         String token = userService.getToken();
         String shortToken = userService.getShortToken();
         existUser.setToken(token);
@@ -58,11 +61,6 @@ public class AuthRestController {
         userService.saveUser(existUser);
         AuthDTO authDTO = new AuthDTO(token, shortToken);
         return ResponseEntity.ok(authDTO);
-    }
-
-    @GetMapping(path = "/test")
-    public ResponseEntity test() {
-        return ResponseEntity.ok("topchick");
     }
 
     @InitBinder
