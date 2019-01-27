@@ -21,7 +21,8 @@ public class User {
     private double lastLatitude;
     private double lastLongitude;
 
-    private boolean isVisible;
+    private boolean isVisible = true;
+    private boolean isVisibleMessage = true;
 
     private LocalDateTime lastSeenDate;
 

@@ -11,4 +11,6 @@ public interface UserService {
     String getShortToken();
     UniversalResponse updatePosition(UserDTO userDTO);
     UniversalResponse getFriendPosition(long id);
+    UniversalResponse setVisible(boolean isVisible);
+    UniversalResponse addFriend(UserDTO userDTO);
 }

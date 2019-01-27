@@ -7,6 +7,7 @@ import com.javathon.backend.service.dto.UserDTO;
 import com.javathon.backend.service.interf.UserService;
 import com.javathon.backend.util.RandomString;
 import com.javathon.backend.util.UniversalResponse;
+import com.javathon.backend.util.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,7 @@ public class UserServiceImpl implements UserService {
         user.setLastLatitude(userDTO.getLastLatitude());
         user.setLastLongitude(userDTO.getLastLongitude());
         user.setLastSeenDate(LocalDateTime.now());
+        userDao.save(user);
         //Send friends position
 
         user.getFriend().forEach((vkId, friend) -> {
@@ -63,17 +65,38 @@ public class UserServiceImpl implements UserService {
     public UniversalResponse getFriendPosition(long friend_id) {
         UniversalResponse universalResponse = new UniversalResponse();
         User user = userDao.findUserByToken(mainInterceptor.getToken());
-        if(user == null) {
-            universalResponse.setSuccess(false);
-            return universalResponse;
-        }
         User friend = user.getFriend().get(friend_id);
-        if(friend == null) {
+        if(friend == null && !friend.isVisible()) {
             universalResponse.setSuccess(false);
             return universalResponse;
         }
         UserDTO userDTO = new UserDTO.Builder(friend).setDefault_config().build();
         universalResponse.setFriend(userDTO);
+        universalResponse.setSuccess(true);
+        return universalResponse;
+    }
+
+    @Override
+    public UniversalResponse setVisible(boolean isVisible) {
+        UniversalResponse universalResponse = new UniversalResponse();
+        User user = userDao.findUserByToken(mainInterceptor.getToken());
+        user.setVisible(isVisible);
+        userDao.save(user);
+        universalResponse.setSuccess(true);
+        return universalResponse;
+    }
+
+    @Override
+    public UniversalResponse addFriend(UserDTO userDTO) {
+        UniversalResponse universalResponse = new UniversalResponse();
+        User user = userDao.findUserByToken(mainInterceptor.getToken());
+        User friend = userDao.findByVkId(userDTO.getVkId());
+        if(friend == null && user.getFriend().containsKey(friend.getVkId())){
+            universalResponse.setSuccess(false);
+            return null;
+        }
+        user.getFriend().put(userDTO.getVkId(), UserConverter.convertUserDTOToUser(userDTO));
+        userDao.save(user);
         universalResponse.setSuccess(true);
         return universalResponse;
     }
