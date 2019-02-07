@@ -2,6 +2,8 @@ package com.javathon.backend.controller.rest;
 
 import com.javathon.backend.service.dto.UserDTO;
 import com.javathon.backend.service.interf.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/rest/")
 public class MainRestController {
     private final UserService userService;
+    private final Logger logger = LoggerFactory.getLogger(MainRestController.class);
 
     public MainRestController(UserService userService) {
         this.userService = userService;
