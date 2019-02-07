@@ -20,13 +20,13 @@ public class UniversalResponse {
     private Map<Long, List<MessageDTO>> messages = new HashMap<>();
     private List<UserDTO> friends = new ArrayList<>();
 
-    public static UniversalResponse OK(){
+    public static UniversalResponse OK() {
         UniversalResponse universalResponse = new UniversalResponse();
         universalResponse.setSuccess(true);
         return universalResponse;
     }
 
-    public static UniversalResponse BAD(){
+    public static UniversalResponse BAD() {
         UniversalResponse universalResponse = new UniversalResponse();
         universalResponse.setSuccess(false);
         return universalResponse;

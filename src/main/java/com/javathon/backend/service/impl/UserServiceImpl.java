@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
         this.mainInterceptor = mainInterceptor;
     }
+
     @Override
     public void saveUser(User user) {
         userDao.save(user);
@@ -63,7 +64,8 @@ public class UserServiceImpl implements UserService {
         //Send friends position
 
         user.getFriend().forEach((vkId, friend) -> {
-            if(friend.isVisible() && friend.getImei() != null) {
+            if (friend.isVisible() && friend.getImei() != null) {
+                logger.info("getUser kaka byaka");
                 logger.info(String.valueOf(friend.getVkId()));
                 universalResponse.getFriends().add(new UserDTO.Builder(friend).setDefault_config().build());
             }
@@ -79,7 +81,7 @@ public class UserServiceImpl implements UserService {
         UniversalResponse universalResponse = new UniversalResponse();
         User user = userDao.findUserByToken(mainInterceptor.getToken());
         User friend = user.getFriend().get(friend_id);
-        if(friend == null && !friend.isVisible()) {
+        if (friend == null && !friend.isVisible()) {
             universalResponse.setSuccess(false);
             return universalResponse;
         }
@@ -101,7 +103,7 @@ public class UserServiceImpl implements UserService {
     public UniversalResponse addFriend(UserDTO userDTO) {
         User user = userDao.findUserByToken(mainInterceptor.getToken());
         User friend = userDao.findByVkId(userDTO.getVkId());
-        if(friend == null && user.getFriend().containsKey(friend.getVkId())){
+        if (friend == null && user.getFriend().containsKey(friend.getVkId())) {
             return UniversalResponse.BAD();
         }
         user.getFriend().put(userDTO.getVkId(), UserConverter.convertUserDTOToUser(userDTO));
@@ -119,15 +121,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UniversalResponse getFriendsMessages(){
+    public UniversalResponse getFriendsMessages() {
         User user = userDao.findUserByToken(mainInterceptor.getToken());
         UniversalResponse universalResponse = new UniversalResponse();
-        if(!user.isVisibleMessage()){
-           return UniversalResponse.BAD();
+        if (!user.isVisibleMessage()) {
+            return UniversalResponse.BAD();
         }
         user.getFriend().forEach((key, friend) -> {
             List<MessageDTO> messages = new ArrayList<>();
-            if(friend.getMessages().size() != 0) {
+            if (friend.getMessages().size() != 0) {
                 friend.getMessages().forEach(eventMessage -> {
                     messages.add(new MessageDTO.Builder(eventMessage).setDefault_config().build());
                 });

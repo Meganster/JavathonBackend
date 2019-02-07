@@ -43,6 +43,7 @@ public class AuthRestController {
         }
         return ResponseEntity.ok(authService.create(userDTO));
     }
+
     @PostMapping(path = "/recovery")
     public ResponseEntity recovery(@RequestBody UserDTO userDTO) {
         logger.info("recovery");

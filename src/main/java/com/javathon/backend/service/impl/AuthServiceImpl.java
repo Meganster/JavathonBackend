@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
         String shortToken = userService.getShortToken();
         User user = UserConverter.convertUserDTOToUser(userDTO);
         User targett;
-        if((targett = userDao.findByVkId(userDTO.getVkId())) != null){
+        if ((targett = userDao.findByVkId(userDTO.getVkId())) != null) {
             user.setId(targett.getId());
         }
 
@@ -36,11 +36,12 @@ public class AuthServiceImpl implements AuthService {
         user.setRecovery_code(shortToken);
         user.setImei(userDTO.getImei());
         user.setVkId(userDTO.getVkId());
-        user.setUsername(userDTO.getUsername());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
 
         for (UserDTO friend : userDTO.getUserDTOList()) {
             User target;
-            if((target = userDao.findByVkId(friend.getVkId())) == null && friend.getVkId() != userDTO.getVkId()) {
+            if ((target = userDao.findByVkId(friend.getVkId())) == null && friend.getVkId() != userDTO.getVkId()) {
                 target = new User();
                 target.setVkId(friend.getVkId());
                 target = userDao.save(target);

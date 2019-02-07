@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class AuthDTO {
-    @JsonProperty("token")
-    private String token;
+    @JsonProperty("accessToken")
+    private String accessToken;
     @JsonProperty("recoveryCode")
     private String recoveryCode;
 }

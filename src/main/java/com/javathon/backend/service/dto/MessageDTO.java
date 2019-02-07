@@ -7,6 +7,7 @@ import com.javathon.backend.model.db.events.impl.EventMessage;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+
 @Getter
 @JsonDeserialize(builder = MessageDTO.Builder.class)
 public class MessageDTO {
@@ -20,7 +21,7 @@ public class MessageDTO {
     private final String description;
 
     @JsonPOJOBuilder
-    public static class Builder  {
+    public static class Builder {
         private EventMessage eventMessage;
         @JsonProperty("latitude")
         private double lastLatitude;
@@ -46,7 +47,7 @@ public class MessageDTO {
             return this;
         }
 
-        public MessageDTO build () {
+        public MessageDTO build() {
             return new MessageDTO(this);
         }
     }

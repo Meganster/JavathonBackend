@@ -11,7 +11,8 @@ public class UserConverter {
         User user = new User();
         user.setLastLatitude(userDTO.getLastLatitude());
         user.setLastLongitude(userDTO.getLastLongitude());
-        user.setUsername(userDTO.getUsername());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
         user.setVkId(userDTO.getVkId());
         user.setVisible(userDTO.isVisible());
         user.setLastSeenDate(userDTO.getLastSeenDate());

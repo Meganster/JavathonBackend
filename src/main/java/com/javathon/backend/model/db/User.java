@@ -20,7 +20,8 @@ public class User {
     private long vkId;
 
     private String imei;
-    private String username;
+    private String firstName;
+    private String lastName;
     private double lastLatitude;
     private double lastLongitude;
 
@@ -37,6 +38,6 @@ public class User {
 
     @ElementCollection(targetClass = User.class)
     @CollectionTable(name = "friends", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "friend_id"}, name = "friends")})
-    @MapKey(name="id")
+    @MapKey(name = "id")
     private Map<Long, User> friend = new HashMap<>();
 }
