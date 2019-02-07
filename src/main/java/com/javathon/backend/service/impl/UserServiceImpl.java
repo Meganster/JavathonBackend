@@ -18,9 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -63,13 +61,23 @@ public class UserServiceImpl implements UserService {
         user.setLastSeenDate(LocalDateTime.now());
         //Send friends position
         logger.info("user.getFriend  -  " + user.getFriend());
-        user.getFriend().forEach((id, friend) -> {
+        for (Map.Entry<Long, User> pair: user.getFriend().entrySet()) {
+            logger.info("getUser in forEach");
+            User friend = pair.getValue();
             if (friend.isVisible() && friend.getImei() != null) {
-                logger.info("getUser in forEach");
+                logger.info("getUser in forEach and if");
                 logger.info(String.valueOf(friend.getVkId()));
                 universalResponse.getFriends().add(new UserDTO.Builder(friend).setDefault_config().build());
             }
-        });
+        }
+//        user.getFriend().forEach((id, friend) -> {
+//            logger.info("getUser in forEach");
+//            if (friend.isVisible() && friend.getImei() != null) {
+//                logger.info("getUser in forEach and if");
+//                logger.info(String.valueOf(friend.getVkId()));
+//                universalResponse.getFriends().add(new UserDTO.Builder(friend).setDefault_config().build());
+//            }
+//        });
         userDao.save(user);
 
         universalResponse.setSuccess(true);
