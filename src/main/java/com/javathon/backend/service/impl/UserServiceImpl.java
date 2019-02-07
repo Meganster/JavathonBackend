@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         user.setLastLongitude(userDTO.getLastLongitude());
         user.setLastSeenDate(LocalDateTime.now());
         //Send friends position
-        logger.info("user.getFriend  -  " + user.getFriend());
+//        logger.info("user.getFriend  -  " + user.getFriend());
         for (Map.Entry<Long, User> pair: user.getFriend().entrySet()) {
             logger.info("getUser in forEach");
             User friend = pair.getValue();

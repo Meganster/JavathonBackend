@@ -25,4 +25,3 @@
 /.nb-gradle/
 
 .mvn
-src/main/resources/application.properties

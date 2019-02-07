@@ -1,5 +1,6 @@
 package com.javathon.backend.model.db;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.javathon.backend.model.db.events.impl.EventMessage;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
