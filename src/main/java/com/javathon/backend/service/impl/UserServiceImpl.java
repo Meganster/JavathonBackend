@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
     public UniversalResponse addFriend(UserDTO userDTO) {
         User user = userDao.findUserByToken(mainInterceptor.getToken());
         User friend = userDao.findByVkId(userDTO.getVkId());
-        if (friend == null && user.getFriend().containsKey(friend.getVkId())) {
+        if (friend == null || user.getFriend().containsKey(friend.getVkId())) {
             return UniversalResponse.BAD();
         }
         user.getFriend().put(userDTO.getVkId(), UserConverter.convertUserDTOToUser(userDTO));
