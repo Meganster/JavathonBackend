@@ -29,9 +29,4 @@ public class UserRestController {
     public ResponseEntity addFriend(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.addFriend(userDTO));
     }
-
-    @PostMapping("/createMessage")
-    public ResponseEntity createMessage(@RequestBody MessageDTO messageDTO) {
-        return ResponseEntity.ok("");
-    }
 }
