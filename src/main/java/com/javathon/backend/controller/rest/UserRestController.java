@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.websocket.server.PathParam;
 
 @RestController
-@RequestMapping("/rest/user")
+@RequestMapping("/api/user")
 public class UserRestController {
     private final UserService userService;
 

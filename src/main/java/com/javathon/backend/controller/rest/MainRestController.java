@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/rest/")
+@RequestMapping("/api/")
 public class MainRestController {
     private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(MainRestController.class);

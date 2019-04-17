@@ -28,6 +28,50 @@ public class UserDTO {
     private final LocalDateTime lastSeenDate;
     private final List<UserDTO> userDTOList;
 
+    public long getId() {
+        return id;
+    }
+
+    public long getVkId() {
+        return vkId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getRecoveryCode() {
+        return recoveryCode;
+    }
+
+    public String getImei() {
+        return imei;
+    }
+
+    public double getLastLatitude() {
+        return lastLatitude;
+    }
+
+    public double getLastLongitude() {
+        return lastLongitude;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public LocalDateTime getLastSeenDate() {
+        return lastSeenDate;
+    }
+
+    public List<UserDTO> getUserDTOList() {
+        return userDTOList;
+    }
+
 
     @JsonPOJOBuilder
     public static class Builder {
