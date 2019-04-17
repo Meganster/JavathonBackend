@@ -31,4 +31,44 @@ public class UniversalResponse {
         universalResponse.setSuccess(false);
         return universalResponse;
     }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public AuthDTO getAuthDTO() {
+        return authDTO;
+    }
+
+    public void setAuthDTO(AuthDTO authDTO) {
+        this.authDTO = authDTO;
+    }
+
+    public UserDTO getFriend() {
+        return friend;
+    }
+
+    public void setFriend(UserDTO friend) {
+        this.friend = friend;
+    }
+
+    public Map<Long, List<MessageDTO>> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Map<Long, List<MessageDTO>> messages) {
+        this.messages = messages;
+    }
+
+    public List<UserDTO> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<UserDTO> friends) {
+        this.friends = friends;
+    }
 }

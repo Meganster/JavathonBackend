@@ -21,8 +21,4 @@ public interface UserService {
     UniversalResponse setVisible(boolean isVisible);
 
     UniversalResponse addFriend(UserDTO userDTO);
-
-    UniversalResponse createMessage(MessageDTO messageDTO);
-
-    UniversalResponse getFriendsMessages();
 }

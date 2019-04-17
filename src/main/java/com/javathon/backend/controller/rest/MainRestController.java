@@ -26,9 +26,4 @@ public class MainRestController {
     public ResponseEntity getFriendPosition(@PathVariable long vkId) {
         return ResponseEntity.ok(userService.getFriendPosition(vkId));
     }
-
-    @GetMapping("/friend_messages")
-    public ResponseEntity getFriendMessages() {
-        return ResponseEntity.ok(userService.getFriendsMessages());
-    }
 }

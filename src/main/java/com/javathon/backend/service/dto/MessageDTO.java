@@ -3,7 +3,6 @@ package com.javathon.backend.service.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.javathon.backend.model.db.events.impl.EventMessage;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -22,7 +21,6 @@ public class MessageDTO {
 
     @JsonPOJOBuilder
     public static class Builder {
-        private EventMessage eventMessage;
         @JsonProperty("latitude")
         private double lastLatitude;
         @JsonProperty("longitude")
@@ -33,18 +31,6 @@ public class MessageDTO {
         private String description;
 
         public Builder() {
-        }
-
-        public Builder(EventMessage eventMessage) {
-            this.eventMessage = eventMessage;
-        }
-
-        public Builder setDefault_config() {
-            this.lastLongitude = this.eventMessage.getLongitude();
-            this.createTime = this.eventMessage.getCreateTime();
-            this.description = this.eventMessage.getDescription();
-            this.lastLatitude = this.eventMessage.getLatitude();
-            return this;
         }
 
         public MessageDTO build() {

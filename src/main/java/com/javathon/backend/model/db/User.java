@@ -1,7 +1,5 @@
 package com.javathon.backend.model.db;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.javathon.backend.model.db.events.impl.EventMessage;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -33,9 +31,6 @@ public class User {
 
     private String token;
     private String recovery_code;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "author")
-    private List<EventMessage> messages = new ArrayList<>();
 
     @ElementCollection(targetClass = User.class)
     @CollectionTable(name = "friends", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "friend_id"}, name = "friends")})

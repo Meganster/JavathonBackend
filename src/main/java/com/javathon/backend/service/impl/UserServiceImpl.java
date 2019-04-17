@@ -2,12 +2,10 @@ package com.javathon.backend.service.impl;
 
 import com.javathon.backend.dao.UserDao;
 import com.javathon.backend.model.db.User;
-import com.javathon.backend.model.db.events.impl.EventMessage;
 import com.javathon.backend.security.Interceptors.MainInterceptor;
 import com.javathon.backend.service.dto.MessageDTO;
 import com.javathon.backend.service.dto.UserDTO;
 import com.javathon.backend.service.interf.UserService;
-import com.javathon.backend.util.MessageConverter;
 import com.javathon.backend.util.RandomString;
 import com.javathon.backend.util.UniversalResponse;
 import com.javathon.backend.util.UserConverter;
@@ -117,34 +115,6 @@ public class UserServiceImpl implements UserService {
         user.getFriend().put(userDTO.getVkId(), UserConverter.convertUserDTOToUser(userDTO));
         userDao.save(user);
         return UniversalResponse.OK();
-    }
-
-    @Override
-    public UniversalResponse createMessage(MessageDTO messageDTO) {
-        User user = userDao.findUserByToken(mainInterceptor.getToken());
-        EventMessage eventMessage = MessageConverter.convertMessageDTOToEventMessage(messageDTO);
-        eventMessage.setAuthor(user);
-        userDao.save(user);
-        return UniversalResponse.OK();
-    }
-
-    @Override
-    public UniversalResponse getFriendsMessages() {
-        User user = userDao.findUserByToken(mainInterceptor.getToken());
-        UniversalResponse universalResponse = new UniversalResponse();
-        if (!user.isVisibleMessage()) {
-            return UniversalResponse.BAD();
-        }
-        user.getFriend().forEach((key, friend) -> {
-            List<MessageDTO> messages = new ArrayList<>();
-            if (friend.getMessages().size() != 0) {
-                friend.getMessages().forEach(eventMessage -> {
-                    messages.add(new MessageDTO.Builder(eventMessage).setDefault_config().build());
-                });
-            }
-            universalResponse.getMessages().put(key, messages);
-        });
-        return universalResponse;
     }
 
     @Override
